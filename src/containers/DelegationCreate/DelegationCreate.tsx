@@ -127,15 +127,15 @@ class DelegationCreate extends React.Component<Props, State> {
 
     if (delegation) {
       const blockUi: BlockUi = FeedbackService.addBlockUi({
-        headline: 'Creating Root-Delegation',
+        headline: `Creating ${isPCR ? 'Root PCR' : 'Root Delegation'}`,
       })
 
       delegationService
         .storeRoot(delegation, alias, isPCR)
         .then(() => {
           blockUi.remove()
-          notifySuccess('Delegation successfully created')
-          history.push('/delegations')
+          notifySuccess(`${isPCR ? 'PCR' : 'Delegation'} successfully created`)
+          history.push(isPCR ? '/pcrs' : '/delegations')
         })
         .catch(error => {
           blockUi.remove()
